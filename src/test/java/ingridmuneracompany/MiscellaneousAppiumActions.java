@@ -4,7 +4,6 @@ import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.DeviceRotation;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
