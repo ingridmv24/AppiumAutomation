@@ -1,6 +1,8 @@
 package ingridmuneracompany;
 
 import io.appium.java_client.AppiumBy;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import org.openqa.selenium.DeviceRotation;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -22,8 +24,33 @@ public class MiscellaneousAppiumActions extends BaseTest {
         String alertTitle = driver.findElement(AppiumBy.id("android:id/alertTitle")).getText();
         Assert.assertEquals(alertTitle,"WiFi settings");
 
-        driver.findElement(AppiumBy.id("android:id/edit")).sendKeys("Ingrid Wifi");
+        //Copy paste
+        //copy to clipboard - paste it clipboard
+        driver.setClipboardText("Ingrid Wifi"); //from somewhere we're copy this text
+        driver.findElement(AppiumBy.id("android:id/edit")).sendKeys(driver.getClipboardText());
+
+        //press enter
+        driver.pressKey(new KeyEvent(AndroidKey.ENTER));
+
+        //click on OK button
         driver.findElement(AppiumBy.id("android:id/button1")).click();
+
+        //press back button in the phone
+        driver.pressKey(new KeyEvent(AndroidKey.BACK));
+
+        //press home button in the phone
+        driver.pressKey(new KeyEvent(AndroidKey.HOME));
+
+        //last lines before copy paste code
+        //driver.findElement(AppiumBy.id("android:id/edit")).sendKeys("Ingrid Wifi"); //writting text
+
+
+
+
+
+
+
+
 
         //set Wifi name
     }
