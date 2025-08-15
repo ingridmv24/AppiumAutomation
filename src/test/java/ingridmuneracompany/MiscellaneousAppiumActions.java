@@ -1,9 +1,13 @@
 package ingridmuneracompany;
 
+import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumBy;
+import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import org.openqa.selenium.DeviceRotation;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.net.MalformedURLException;
@@ -12,8 +16,13 @@ import java.net.URISyntaxException;
 public class MiscellaneousAppiumActions extends BaseTest {
     @Test
     public void Miscellaneous() throws URISyntaxException, MalformedURLException {
-        driver.findElement(AppiumBy.accessibilityId("Preference")).click();
-        driver.findElement(AppiumBy.xpath("//android.widget.TextView[@content-desc='3. Preference dependencies']")).click();
+        //App package & App activity
+        //start the test execution from specific page
+        Activity activity = new Activity("io.appium.android.apis","io.appium.android.apis.preference.PreferenceDependencies");
+        ((JavascriptExecutor) driver).executeScript("mobile: startActivity", ImmutableMap.of("intent","io.appium.android.apis/io.appium.android.apis.preference.PreferenceDependencies"));
+
+//        driver.findElement(AppiumBy.accessibilityId("Preference")).click();
+//        driver.findElement(AppiumBy.xpath("//android.widget.TextView[@content-desc='3. Preference dependencies']")).click();
         driver.findElement(AppiumBy.id("android:id/checkbox")).click();
 
         //Rotate the device to landscape mode
