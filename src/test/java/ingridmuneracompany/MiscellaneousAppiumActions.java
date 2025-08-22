@@ -7,7 +7,6 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import org.openqa.selenium.DeviceRotation;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.net.MalformedURLException;
@@ -52,14 +51,6 @@ public class MiscellaneousAppiumActions extends BaseTest {
 
         //last lines before copy paste code
         //driver.findElement(AppiumBy.id("android:id/edit")).sendKeys("Ingrid Wifi"); //writting text
-
-
-
-
-
-
-
-
 
         //set Wifi name
     }
