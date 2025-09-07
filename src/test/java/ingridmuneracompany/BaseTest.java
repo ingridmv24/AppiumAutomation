@@ -34,6 +34,7 @@ public class BaseTest {
         //Se crea objeto de la clase AndroidDriver que espera dos argumentos.
         UiAutomator2Options options = new UiAutomator2Options(); //con esta clase se especifica que tipo de dispositivo android se va utilizar
         options.setDeviceName("IngridPhone");
+        options.setUdid("emulator-5554"); // el id real del emulador
         //options.setApp("C:\\Users\\ingrid.munera\\AndroidStudioProjects\\Appium\\src\\test\\java\\resources\\ApiDemos-debug.apk");
         options.setApp("C:\\Users\\ingrid.munera\\AndroidStudioProjects\\Appium\\src\\test\\java\\resources\\General-Store.apk");
         driver = new AndroidDriver(new URI("http://127.0.0.1:4723").toURL(), options);
@@ -83,6 +84,7 @@ public class BaseTest {
                 "endY", coorditaneY
         ));
     }
+
 
     @AfterClass
     public void tearDown(){
