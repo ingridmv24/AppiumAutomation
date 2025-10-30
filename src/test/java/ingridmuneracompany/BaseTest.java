@@ -85,6 +85,16 @@ public class BaseTest {
         ));
     }
 
+    //Formater of dollar caracter
+    public Double getFormattedAmmount(String amountString){
+        String removeDollar = amountString.substring(1); //devolver el string empezando desde el idex 1
+        Double price = Double.parseDouble(removeDollar); //convert string to double
+        return price;
+
+        //forma 2
+        //Double price =  Double.parseDouble(amountString.substring(1));
+    }
+
 
     @AfterClass
     public void tearDown(){

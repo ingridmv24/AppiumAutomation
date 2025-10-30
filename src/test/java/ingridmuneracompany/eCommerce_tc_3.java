@@ -46,23 +46,16 @@ public class eCommerce_tc_3 extends BaseTest {
 
         for(int i = 0; i < count; i++ ){
             String amountString = productPrices.get(i).getText();
-
-            //remove dollar character and convert string to double
-/*          Double price =  Double.parseDouble(amountString.substring(1));
-            totalSum = totalSum + price;*/
-
-            //forma 2
-            //remove dollar character
-            String removeDollar = amountString.substring(1); //devolver el string empezando desde el idex 1
-
-            //convert string to double
-            Double price = Double.parseDouble(removeDollar);
+            Double price = getFormattedAmmount(amountString);
 
             //sum prices
             totalSum =  totalSum + price; //1st iteracion = 160.97 + 2nd iteracion = 120.0 = 280.97
         }
-
         System.out.println("Total products sum is: " + totalSum);
-        Assert.assertEquals(totalSum, 280.97);
+
+        String displaySum = driver.findElement(By.id("com.androidsample.generalstore:id/totalAmountLbl")).getText();
+        Double displayFormattedSum = getFormattedAmmount(displaySum);
+
+        Assert.assertEquals(totalSum, displayFormattedSum);
     }
 }
