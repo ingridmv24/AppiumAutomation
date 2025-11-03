@@ -34,8 +34,18 @@ public class eCommerce_tc_3 extends BaseTest {
         //click on Cart icon
         driver.findElement(By.id("com.androidsample.generalstore:id/appbar_btn_cart")).click();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.attributeContains(driver.findElement(By.id("com.androidsample.generalstore:id/toolbar_title")),"text","Cart"));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(8));
+/*        wait.until(ExpectedConditions.attributeContains(
+                (By.id("com.androidsample.generalstore:id/toolbar_title")),
+                "text",
+                "Cart"
+        ));*/
+
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(
+                By.id("com.androidsample.generalstore:id/toolbar_title"),
+                "Cart"
+        ));
+
 
         //extract prices from the Cart page
         //retornat la cantidad de lista de precios
@@ -57,5 +67,22 @@ public class eCommerce_tc_3 extends BaseTest {
         Double displayFormattedSum = getFormattedAmmount(displaySum);
 
         Assert.assertEquals(totalSum, displayFormattedSum);
+
+        //long click on terms of conditions text
+        WebElement ele = driver.findElement(By.id("com.androidsample.generalstore:id/termsButton"));
+        longPressAction(ele);
+
+        String conditionsTitle = driver.findElement(By.id("com.androidsample.generalstore:id/alertTitle")).getText();
+        Assert.assertEquals(conditionsTitle, "Terms Of Conditions");
+
+        //close pop up
+        driver.findElement(By.xpath("//android.widget.Button[@text='CLOSE']")).click();
+
+        //click on send me emails check box
+        driver.findElement(By.xpath("//android.widget.CheckBox[contains(@text,'future')]")).click();
+
+        //click on visit website to complete purchase
+        driver.findElement(By.id("com.androidsample.generalstore:id/btnProceed")).click();
+        Thread.sleep(2000);
     }
 }

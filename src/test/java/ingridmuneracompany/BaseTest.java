@@ -27,7 +27,7 @@ public class BaseTest {
         //Appium code -> Appium Sever -> Mobile //Se crea codigo en Appium y se envia a servidor de Appium que lo interpreta en acciones en un dispositivo mobile
 
         //Start appium servet automatically
-        service = new AppiumServiceBuilder().withAppiumJS(new File("C:\\Users\\ingrid.munera\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
+        service = new AppiumServiceBuilder().withAppiumJS(new File("C:\\Users\\ingri\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
                 .withIPAddress("127.0.0.1").usingPort(4723).build();
         service.start();
 
@@ -36,7 +36,7 @@ public class BaseTest {
         options.setDeviceName("IngridPhone");
         options.setUdid("emulator-5554"); // el id real del emulador
         //options.setApp("C:\\Users\\ingrid.munera\\AndroidStudioProjects\\Appium\\src\\test\\java\\resources\\ApiDemos-debug.apk");
-        options.setApp("C:\\Users\\ingrid.munera\\AndroidStudioProjects\\Appium\\src\\test\\java\\resources\\General-Store.apk");
+        options.setApp("C:\\Users\\ingri\\IdeaProjects\\Appium\\AppiumAutomation\\src\\test\\java\\resources\\General-Store.apk");
         driver = new AndroidDriver(new URI("http://127.0.0.1:4723").toURL(), options);
         driver.manage().timeouts().implicitlyWait((Duration.ofSeconds((10))));
     }
