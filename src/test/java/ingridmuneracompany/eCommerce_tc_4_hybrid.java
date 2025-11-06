@@ -1,4 +1,5 @@
 package ingridmuneracompany;
+
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
@@ -9,11 +10,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 
-public class eCommerce_tc_3 extends BaseTest {
+public class eCommerce_tc_4_hybrid extends BaseTest {
     @Test
     public void FillForm() throws InterruptedException {
         driver.findElement(By.id("com.androidsample.generalstore:id/nameField")).sendKeys("Ingrid Munera");
@@ -86,5 +88,18 @@ public class eCommerce_tc_3 extends BaseTest {
         //click on visit website to complete purchase
         driver.findElement(By.id("com.androidsample.generalstore:id/btnProceed")).click();
         Thread.sleep(8000);
+
+        //Handre hybrid app - Google page
+        Set<String> contexts = driver.getContextHandles();
+        for(String contextName : contexts){
+            System.out.println(contextName);
+        }
+
+        driver.context("WEBVIEW_com.androidsample.generalstore");
+        driver.findElement((By.name("q"))).sendKeys("automation testing");
+        driver.findElement((By.name("q"))).sendKeys(Keys.ENTER);
+
+        driver.pressKey(new KeyEvent(AndroidKey.BACK)); //return to native device
+        driver.context("NATIVE_APP");
     }
 }
