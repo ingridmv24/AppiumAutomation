@@ -1,4 +1,4 @@
-package ingridmuneracompany;
+package org.testcompany;
 
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.nativekey.AndroidKey;
@@ -8,6 +8,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testcompany.pageObjects.android.FormPage;
+import org.testcompany.pageObjects.android.ProductCataloge;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -18,25 +20,27 @@ import java.util.Set;
 public class eCommerce_tc_4_hybrid extends BaseTest {
     @Test
     public void FillForm() throws InterruptedException {
-        driver.findElement(By.id("com.androidsample.generalstore:id/nameField")).sendKeys("Ingrid Munera");
+
+        FormPage formPage = new FormPage(driver);
+        formPage.setNameField("Ingrid Munera");
         driver.hideKeyboard();
-        driver.findElement(By.xpath("//android.widget.RadioButton[@text='Female']")).click();
-        driver.findElement(By.id("android:id/text1")).click();
+
+        formPage.setGender("female");
 
         //Scroll until Colombia text and select Colombia country
-        driver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\"Colombia\"));"));
-        driver.findElement(By.xpath("//android.widget.TextView[@text='Colombia']")).click();
+        formPage.setCountrySelection("Colombia");
 
         //Click on Let's Shop button
-        driver.findElement(By.id("com.androidsample.generalstore:id/btnLetsShop")).click();
+        formPage.submitForm();
 
+        ProductCataloge productCataloge = new ProductCataloge(driver);
         //add two product to the cart
-        driver.findElements(By.xpath("//android.widget.TextView[@text='ADD TO CART']")).get(0).click();
-        //driver.findElement(By.xpath(("//android.widget.TextView[@text='ADD TO CART'])[0]"))).click();
-        driver.findElements(By.xpath("//android.widget.TextView[@text='ADD TO CART']")).get(0).click();
+        productCataloge.addItemTocartByIndex(0);
+        productCataloge.addItemTocartByIndex(0);
 
         //click on Cart icon
-        driver.findElement(By.id("com.androidsample.generalstore:id/appbar_btn_cart")).click();
+        productCataloge.goToCartPage();
+
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(8));
 /*        wait.until(ExpectedConditions.attributeContains(

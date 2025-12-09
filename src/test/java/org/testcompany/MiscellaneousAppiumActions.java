@@ -1,4 +1,4 @@
-package ingridmuneracompany;
+package org.testcompany;
 
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumBy;
