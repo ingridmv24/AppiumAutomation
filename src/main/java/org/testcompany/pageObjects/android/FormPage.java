@@ -1,6 +1,4 @@
 package org.testcompany.pageObjects.android;
-
-import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -39,6 +37,7 @@ public class FormPage extends AndroidActions {
     public void setNameField(String name)
     {
         nameField.sendKeys(name);
+        driver.hideKeyboard();
     }
 
     public void setGender(String gender)
@@ -59,7 +58,9 @@ public class FormPage extends AndroidActions {
     }
 
     //Click on Let's Shop button
-    public void submitForm(){
+    public ProductCataloge submitForm()
+    {
         shopButton.click();
+        return new ProductCataloge(driver);
     }
 }

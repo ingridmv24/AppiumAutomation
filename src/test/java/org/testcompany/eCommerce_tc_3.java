@@ -54,7 +54,7 @@ public class eCommerce_tc_3 extends BaseTest {
 
         for(int i = 0; i < count; i++ ){
             String amountString = productPrices.get(i).getText();
-            Double price = getFormattedAmmount(amountString);
+            Double price = getFormattedAmount(amountString);
 
             //sum prices
             totalSum =  totalSum + price; //1st iteracion = 160.97 + 2nd iteracion = 120.0 = 280.97
@@ -62,7 +62,7 @@ public class eCommerce_tc_3 extends BaseTest {
         System.out.println("Total products sum is: " + totalSum);
 
         String displaySum = driver.findElement(By.id("com.androidsample.generalstore:id/totalAmountLbl")).getText();
-        Double displayFormattedSum = getFormattedAmmount(displaySum);
+        Double displayFormattedSum = getFormattedAmount(displaySum);
 
         Assert.assertEquals(totalSum, displayFormattedSum);
 

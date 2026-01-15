@@ -21,19 +21,19 @@ public class ProductCataloge extends AndroidActions {
     }
 
    @AndroidFindBy (xpath="//android.widget.TextView[@text='ADD TO CART']")
-   public List<WebElement> addToCart;
+   private List<WebElement> addToCart;
 
     @AndroidFindBy (id="com.androidsample.generalstore:id/appbar_btn_cart")
-    public WebElement cartButton;
+    private WebElement cartButton;
 
     public void addItemTocartByIndex(int index)
     {
         addToCart.get(index).click();
     }
 
-    public void goToCartPage() throws InterruptedException {
+    public CartPage goToCartPage() throws InterruptedException {
         cartButton.click();
         Thread.sleep(2000);
+        return new CartPage(driver);
     }
-
 }

@@ -1,46 +1,35 @@
 package org.testcompany;
 
-import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testcompany.pageObjects.android.CartPage;
 import org.testcompany.pageObjects.android.FormPage;
 import org.testcompany.pageObjects.android.ProductCataloge;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.time.Duration;
-import java.util.List;
 import java.util.Set;
 
 public class eCommerce_tc_4_hybrid extends BaseTest {
     @Test
-    public void FillForm() throws InterruptedException {
-
-        FormPage formPage = new FormPage(driver);
+    public void FillForm() throws InterruptedException
+    {
         formPage.setNameField("Ingrid Munera");
-        driver.hideKeyboard();
-
         formPage.setGender("female");
-
         //Scroll until Colombia text and select Colombia country
         formPage.setCountrySelection("Colombia");
-
-        //Click on Let's Shop button
-        formPage.submitForm();
-
-        ProductCataloge productCataloge = new ProductCataloge(driver);
+        //Click on Let's Shop (submit button)
+        ProductCataloge productCataloge = formPage.submitForm();
         //add two product to the cart
         productCataloge.addItemTocartByIndex(0);
         productCataloge.addItemTocartByIndex(0);
 
         //click on Cart icon
-        productCataloge.goToCartPage();
-
+        CartPage cartPage = productCataloge.goToCartPage();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(8));
 /*        wait.until(ExpectedConditions.attributeContains(
@@ -49,30 +38,14 @@ public class eCommerce_tc_4_hybrid extends BaseTest {
                 "Cart"
         ));*/
 
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(
+/*        wait.until(ExpectedConditions.textToBePresentInElementLocated(
                 By.id("com.androidsample.generalstore:id/toolbar_title"),
                 "Cart"
-        ));
-
+        ));*/
 
         //extract prices from the Cart page
-        //retornat la cantidad de lista de precios
-        List<WebElement> productPrices = driver.findElements(By.id("com.androidsample.generalstore:id/productPrice"));
-
-        int count = productPrices.size();
-        double totalSum = 0;
-
-        for(int i = 0; i < count; i++ ){
-            String amountString = productPrices.get(i).getText();
-            Double price = getFormattedAmmount(amountString);
-
-            //sum prices
-            totalSum =  totalSum + price; //1st iteracion = 160.97 + 2nd iteracion = 120.0 = 280.97
-        }
-        System.out.println("Total products sum is: " + totalSum);
-
-        String displaySum = driver.findElement(By.id("com.androidsample.generalstore:id/totalAmountLbl")).getText();
-        Double displayFormattedSum = getFormattedAmmount(displaySum);
+        double totalSum = cartPage.getProductSum();
+        double displayFormattedSum = cartPage.getTotalAmountDisplayed();
 
         Assert.assertEquals(totalSum, displayFormattedSum);
 
@@ -93,7 +66,7 @@ public class eCommerce_tc_4_hybrid extends BaseTest {
         driver.findElement(By.id("com.androidsample.generalstore:id/btnProceed")).click();
         Thread.sleep(8000);
 
-        //Handre hybrid app - Google page
+        //Handle hybrid app - Google page
         Set<String> contexts = driver.getContextHandles();
         for(String contextName : contexts){
             System.out.println(contextName);

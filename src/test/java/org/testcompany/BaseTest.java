@@ -8,6 +8,7 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.testcompany.pageObjects.android.FormPage;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import java.io.File;
@@ -19,6 +20,7 @@ import java.time.Duration;
 public class BaseTest {
     public AndroidDriver driver;
     public AppiumDriverLocalService service;
+    public FormPage formPage;
 
     @BeforeClass
     public void ConfigureAppium() throws URISyntaxException, MalformedURLException {
@@ -40,6 +42,7 @@ public class BaseTest {
         options.setApp("C:\\Users\\ingri\\IdeaProjects\\Appium\\AppiumAutomation\\src\\test\\java\\resources\\General-Store.apk");
         driver = new AndroidDriver(new URI("http://127.0.0.1:4723").toURL(), options);
         driver.manage().timeouts().implicitlyWait((Duration.ofSeconds((10))));
+        formPage = new FormPage(driver);
     }
 
     //Long click injecting Javascript in the mobile app
@@ -87,7 +90,7 @@ public class BaseTest {
     }
 
     //Formater of dollar caracter
-    public Double getFormattedAmmount(String amountString){
+    public Double getFormattedAmount(String amountString){
         String removeDollar = amountString.substring(1); //devolver el string empezando desde el idex 1
         Double price = Double.parseDouble(removeDollar); //convert string to double
         return price;
