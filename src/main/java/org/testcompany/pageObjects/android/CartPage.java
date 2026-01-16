@@ -60,14 +60,8 @@ public class CartPage extends AndroidActions {
     public void acceptTermsConditions()
     {
         longPressAction(terms);
+        //click on close button
         acceptButton.click();
-    }
-
-    public Double getFormattedAmount(String amount)
-    {
-        String removeDollar = amount.substring(1); //devolver el string empezando desde el index 1
-        Double price = Double.parseDouble(removeDollar); //convert string to double
-        return price;
     }
 
     public void submitOrder()
@@ -75,6 +69,4 @@ public class CartPage extends AndroidActions {
         checkbox.click();
         proceed.click();
     }
-
-
 }

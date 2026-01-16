@@ -4,10 +4,8 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testcompany.pageObjects.android.CartPage;
-import org.testcompany.pageObjects.android.FormPage;
 import org.testcompany.pageObjects.android.ProductCataloge;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -32,35 +30,15 @@ public class eCommerce_tc_4_hybrid extends BaseTest {
         CartPage cartPage = productCataloge.goToCartPage();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(8));
-/*        wait.until(ExpectedConditions.attributeContains(
-                (By.id("com.androidsample.generalstore:id/toolbar_title")),
-                "text",
-                "Cart"
-        ));*/
-
-/*        wait.until(ExpectedConditions.textToBePresentInElementLocated(
-                By.id("com.androidsample.generalstore:id/toolbar_title"),
-                "Cart"
-        ));*/
 
         //extract prices from the Cart page
         double totalSum = cartPage.getProductSum();
         double displayFormattedSum = cartPage.getTotalAmountDisplayed();
-
         Assert.assertEquals(totalSum, displayFormattedSum);
 
         //long click on terms of conditions text
-        WebElement ele = driver.findElement(By.id("com.androidsample.generalstore:id/termsButton"));
-        longPressAction(ele);
-
-        String conditionsTitle = driver.findElement(By.id("com.androidsample.generalstore:id/alertTitle")).getText();
-        Assert.assertEquals(conditionsTitle, "Terms Of Conditions");
-
-        //close pop up
-        driver.findElement(By.xpath("//android.widget.Button[@text='CLOSE']")).click();
-
-        //click on send me emails check box
-        driver.findElement(By.xpath("//android.widget.CheckBox[contains(@text,'future')]")).click();
+        cartPage.acceptTermsConditions();
+        cartPage.submitOrder();
 
         //click on visit website to complete purchase
         driver.findElement(By.id("com.androidsample.generalstore:id/btnProceed")).click();

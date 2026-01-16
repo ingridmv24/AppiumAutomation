@@ -1,4 +1,5 @@
 package org.testcompany;
+
 import io.appium.java_client.AppiumBy;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -23,6 +24,5 @@ public class AppiumBasics extends BaseTest {
 
         driver.findElement(AppiumBy.id("android:id/edit")).sendKeys("Ingrid Wifi");
         driver.findElement(AppiumBy.id("android:id/button1")).click();
-        //set Wifi name
     }
 }

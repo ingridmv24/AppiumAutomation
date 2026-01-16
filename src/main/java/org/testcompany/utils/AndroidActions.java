@@ -3,12 +3,11 @@ package org.testcompany.utils;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 
-public class AndroidActions {
+public class AndroidActions extends AppiumUtils{
     AndroidDriver driver;
     public AndroidActions(AndroidDriver driver){
 

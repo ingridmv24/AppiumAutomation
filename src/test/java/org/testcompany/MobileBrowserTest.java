@@ -5,8 +5,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static io.appium.java_client.CommandExecutionHelper.executeScript;
-
 public class MobileBrowserTest extends BrowserBaseTest {
 
     @Test
@@ -20,7 +18,5 @@ public class MobileBrowserTest extends BrowserBaseTest {
         ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,1000)","");
         String text = driver.findElement(By.cssSelector("a[href$='products/3']")).getText();
         Assert.assertEquals(text,"Devops");
-
     }
-
 }
