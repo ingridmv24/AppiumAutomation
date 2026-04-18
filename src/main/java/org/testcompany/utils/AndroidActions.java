@@ -9,8 +9,8 @@ import org.openqa.selenium.remote.RemoteWebElement;
 
 public class AndroidActions extends AppiumUtils{
     AndroidDriver driver;
-    public AndroidActions(AndroidDriver driver){
-
+    public AndroidActions(AndroidDriver driver)
+    {
         this.driver = driver;
     }
     public void longPressAction(WebElement ele){

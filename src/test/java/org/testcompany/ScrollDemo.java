@@ -1,9 +1,10 @@
 package org.testcompany;
 
 import io.appium.java_client.AppiumBy;
+import org.testcompany.TestUtils.BaseTest;
 import org.testng.annotations.Test;
 
-public class ScrollDemo extends BaseTest{
+public class ScrollDemo extends BaseTest {
     @Test
     public void ScrollDemoTest() throws InterruptedException {
         driver.findElement(new AppiumBy.ByAccessibilityId("Views")).click();

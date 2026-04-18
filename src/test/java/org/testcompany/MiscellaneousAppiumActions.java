@@ -7,6 +7,7 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import org.openqa.selenium.DeviceRotation;
 import org.openqa.selenium.JavascriptExecutor;
+import org.testcompany.TestUtils.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.net.MalformedURLException;

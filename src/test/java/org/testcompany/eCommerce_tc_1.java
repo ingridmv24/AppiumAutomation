@@ -2,6 +2,7 @@ package org.testcompany;
 
 import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
+import org.testcompany.TestUtils.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 public class eCommerce_tc_1 extends BaseTest {

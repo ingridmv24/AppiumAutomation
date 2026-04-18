@@ -1,10 +1,8 @@
 package org.testcompany;
 
-import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumBy;
-import io.appium.java_client.android.Activity;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
+import org.testcompany.TestUtils.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -13,9 +11,7 @@ public class eCommerce_tc_2 extends BaseTest {
     @BeforeMethod
     public void preSetup(){
         //set screen to home page before running any test
-        Activity activity = new Activity("com.androidsample.generalstore","com.androidsample.generalstore.SplashActivity");
-        ((JavascriptExecutor) driver).executeScript("mobile: startActivity", ImmutableMap.of(
-                "intent","com.androidsample.generalstore/com.androidsample.generalstore.SplashActivity"));
+        formPage.setActivity();
     }
 
     @Test

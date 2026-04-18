@@ -3,10 +3,11 @@ package org.testcompany;
 import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testcompany.TestUtils.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class DragDropDemo extends BaseTest{
+public class DragDropDemo extends BaseTest {
     @Test
     public void DragDropTest() throws InterruptedException {
         driver.findElement(new AppiumBy.ByAccessibilityId("Views")).click();

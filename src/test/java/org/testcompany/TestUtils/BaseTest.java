@@ -1,4 +1,4 @@
-package org.testcompany;
+package org.testcompany.TestUtils;
 
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.android.AndroidDriver;
@@ -9,6 +9,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testcompany.pageObjects.android.FormPage;
+import org.testcompany.utils.AppiumUtils;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import java.io.File;
@@ -17,7 +18,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Duration;
 
-public class BaseTest {
+public class BaseTest extends AppiumUtils {
     public AndroidDriver driver;
     public AppiumDriverLocalService service;
     public FormPage formPage;
@@ -29,11 +30,9 @@ public class BaseTest {
         //Appium code -> Appium Sever -> Mobile //Se crea codigo en Appium y se envia a servidor de Appium que lo interpreta en acciones en un dispositivo mobile
 
         //Start appium servet automatically
-        service = new AppiumServiceBuilder().withAppiumJS(new File("C:\\Users\\ingri\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
-                .withIPAddress("127.0.0.1").usingPort(4723).build();
-        service.start();
+        service = startAppiumServer();
 
-        //Se crea objeto de la clase AndroidDriver que espera dos argumentos.
+        //An object of the AndroidDriver class is created that takes two arguments.
         UiAutomator2Options options = new UiAutomator2Options(); //con esta clase se especifica que tipo de dispositivo android se va utilizar
         options.setDeviceName("IngridPhone");
         options.setChromedriverExecutable("C:\\chromedriver\\chromedriver-win64\\chromedriver.exe");

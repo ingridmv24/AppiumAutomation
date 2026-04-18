@@ -3,6 +3,7 @@ package org.testcompany;
 import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testcompany.TestUtils.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
