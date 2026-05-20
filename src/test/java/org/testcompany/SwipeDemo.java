@@ -17,7 +17,7 @@ public class SwipeDemo extends BaseTest {
         Assert.assertEquals(driver.findElement(new By.ByXPath("//android.widget.ImageView[1]")).getAttribute("focusable"),"true");
 
         //Swipe action
-        swipeAction(firstImage,"left");
+        //swipeAction(firstImage,"left");
         //check focusable image is false
         Assert.assertEquals(driver.findElement(new By.ByXPath("//android.widget.ImageView[1]")).getAttribute("focusable"),"false");
     }

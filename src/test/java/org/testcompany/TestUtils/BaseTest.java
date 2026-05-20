@@ -1,22 +1,16 @@
 package org.testcompany.TestUtils;
 
-import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
-import io.appium.java_client.service.local.AppiumServiceBuilder;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebElement;
 import org.testcompany.pageObjects.android.FormPage;
 import org.testcompany.utils.AppiumUtils;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Properties;
 
 public class BaseTest extends AppiumUtils {
     public AndroidDriver driver;
@@ -24,83 +18,40 @@ public class BaseTest extends AppiumUtils {
     public FormPage formPage;
 
     @BeforeClass
-    public void ConfigureAppium() throws URISyntaxException, MalformedURLException {
+    public void ConfigureAppium() throws IOException
+    {
         //Code to start the servet
         //AndroidDriver , IOSDriver
-        //Appium code -> Appium Sever -> Mobile //Se crea codigo en Appium y se envia a servidor de Appium que lo interpreta en acciones en un dispositivo mobile
+        //Appium code -> Appium Sever -> Mobile: Code is generated in Appium and sent to the Appium server, which interprets it as actions on a mobile devic
+
+        Properties prop = new Properties();
+            FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"//src//main//java//org//testcompany//resources//data.properties");
+        prop.load(fis);
+        String ipAddress = prop.getProperty("idAddress");
+        String port = prop.getProperty("port");
 
         //Start appium servet automatically
-        service = startAppiumServer();
+        service = startAppiumServer(ipAddress,Integer.parseInt(port));
 
         //An object of the AndroidDriver class is created that takes two arguments.
         UiAutomator2Options options = new UiAutomator2Options(); //con esta clase se especifica que tipo de dispositivo android se va utilizar
-        options.setDeviceName("IngridPhone");
-        options.setChromedriverExecutable("C:\\chromedriver\\chromedriver-win64\\chromedriver.exe");
+        options.setDeviceName(prop.getProperty("AndroidDeviceName"));
+        options.setChromedriverExecutable("C://chromedriver//chromedriver-win64//chromedriver.exe");
 
         //options.setApp("C:\\Users\\ingrid.munera\\AndroidStudioProjects\\Appium\\src\\test\\java\\resources\\ApiDemos-debug.apk");
-        options.setApp("C:\\Users\\ingri\\IdeaProjects\\Appium\\AppiumAutomation\\src\\test\\java\\resources\\General-Store.apk");
-        driver = new AndroidDriver(new URI("http://127.0.0.1:4723").toURL(), options);
+        options.setApp(System.getProperty("user.dir")+"//src//test//resources//General-Store.apk");
+        driver = new AndroidDriver(service.getUrl(), options);
         driver.manage().timeouts().implicitlyWait((Duration.ofSeconds((10))));
         formPage = new FormPage(driver);
     }
 
-    //Long click injecting Javascript in the mobile app
-    public void longPressAction(WebElement ele){
-        ((JavascriptExecutor)driver).executeScript("mobile: longClickGesture",
-                ImmutableMap.of("elementId",((RemoteWebElement)ele).getId(),
-                        "duration",2000));
-    }
 
-    //No prior idea. when you don't know if the element exists
-    //hace como un scroll y luego valida si puede seguir haciendo scroll y devuelve tru
-    //y cuando no puede seguir haciendo scroll hacia abajo devuelve false, y va ser false cuando llegue al final de la pagina web
-    public void scrollToEndAction(){
-        boolean canScrollMore;
-        do {
-            {
-                canScrollMore = (Boolean) ((JavascriptExecutor) driver).executeScript("mobile: scrollGesture", ImmutableMap.of(
-                        "left", 100,
-                        "top", 100,
-                        "width", 200,
-                        "height", 200,
-                        "direction", "down",
-                        "percent", 3.0
-                ));
-            }
-        }while(canScrollMore);
-    }
-
-    //Swipe
-    public void swipeAction(WebElement ele, String direction){
-        ((JavascriptExecutor) driver).executeScript("mobile: swipeGesture", ImmutableMap.of(
-                "elementId", ((RemoteWebElement)ele).getId(), //cast with remote web element
-                "direction",direction,
-                "percent", 0.25
-        ));
-    }
-
-    //Drag and Drop action
-    public void dragAndDropAction(WebElement source, int coorditaneX, int coorditaneY){
-        ((JavascriptExecutor) driver).executeScript("mobile: dragGesture", ImmutableMap.of(
-                "elementId", ((RemoteWebElement) source).getId(),
-                "endX", coorditaneX,
-                "endY", coorditaneY
-        ));
-    }
-
-    //Formater of dollar caracter
-    public Double getFormattedAmount(String amountString){
-        String removeDollar = amountString.substring(1); //devolver el string empezando desde el idex 1
-        Double price = Double.parseDouble(removeDollar); //convert string to double
-        return price;
-
-        //forma 2
-        //Double price =  Double.parseDouble(amountString.substring(1));
-    }
 
     @AfterClass
-    public void tearDown(){
+    public void tearDown()
+    {
         driver.quit();
         service.stop();
     }
 }
+

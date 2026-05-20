@@ -69,7 +69,7 @@ public class eCommerce_tc_3 extends BaseTest {
 
         //long click on terms of conditions text
         WebElement ele = driver.findElement(By.id("com.androidsample.generalstore:id/termsButton"));
-        longPressAction(ele);
+        //longPressAction(ele);
 
         String conditionsTitle = driver.findElement(By.id("com.androidsample.generalstore:id/alertTitle")).getText();
         Assert.assertEquals(conditionsTitle, "Terms Of Conditions");

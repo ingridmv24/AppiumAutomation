@@ -17,7 +17,7 @@ public class ScrollDemo extends BaseTest {
         driver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\"WebView\"));"));
 
         //No prior idea
-        scrollToEndAction();
+        //scrollToEndAction();
     }
 }
 

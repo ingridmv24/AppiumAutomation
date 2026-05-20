@@ -64,42 +64,24 @@ public class eCommerce_tc_4_hybrid extends BaseTest {
 
         //click on visit website to complete purchase
         cartPage.submitOrder();
-        Thread.sleep(8000);
+        Thread.sleep(5000);
 
         //Handle hybrid app - Google page
-        // Espera explícita hasta que el WEBVIEW esté disponible
-        WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(20));
-        wait2.until(d -> driver.getContextHandles().stream().anyMatch(c -> c.contains("WEBVIEW")));
-
-        // Imprime contextos
         Set<String> contexts = driver.getContextHandles();
         for(String contextName : contexts){
             System.out.println(contextName);
         }
 
-        // Cambia al WEBVIEW
         driver.context("WEBVIEW_com.androidsample.generalstore");
+        driver.findElement((By.name("q"))).sendKeys("automation testing");
+        driver.findElement((By.name("q"))).sendKeys(Keys.ENTER);
 
-        // Espera que la página de Google cargue completamente
-        wait2.until(d -> {
-            try {
-                return driver.findElement(By.name("q")).isDisplayed();
-            } catch (Exception e) {
-                return false;
-            }
-        });
-
-        driver.findElement(By.name("q")).sendKeys("automation testing");
-        driver.findElement(By.name("q")).sendKeys(Keys.ENTER);
-
-        // Regresa a la app nativa
-        Thread.sleep(3000);
-        driver.pressKey(new KeyEvent(AndroidKey.BACK));
+        driver.pressKey(new KeyEvent(AndroidKey.BACK)); //return to native device
         driver.context("NATIVE_APP");
     }
     @DataProvider
     public Object[][] getData() throws IOException {
-        List<HashMap<String, String>>	data = getJsonData(System.getProperty("user.dir")+"/src/main/java/org/testcompany/testData/eCommerce.json");
+        List<HashMap<String, String>>	data =getJsonData(System.getProperty("user.dir")+"/src/main/java/org/testcompany/testData/eCommerce.json");
         //return new Object[][] {{"ingrid munera","female", "Colombia" }, {"andres b","male", "Colombia" }};
         return new Object[][] { {data.get(0)},{data.get(1)}};
     }
